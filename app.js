@@ -5,6 +5,7 @@ const mongoose = require('mongoose');
 const path = require('path');
 const multer = require('multer');
 const { v4: uuidv4 } = require('uuid');
+const cors = require('cors');
 
 const app = express();
 
@@ -31,6 +32,8 @@ app.use(bodyParser.json());
 app.use(multer({storage: storage, fileFilter: fileFilter}).single('image'));
 app.use('/images', express.static(path.join(__dirname, 'images')))
 
+// app.options('*', cors());
+// app.use(cors());
 app.use((req, res, next) => {
     res.setHeader('Access-Control-Allow-Origin', '*');
     res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, PATCH, DELETE');
