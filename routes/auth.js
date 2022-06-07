@@ -3,7 +3,7 @@ const router = express.Router();
 const { check } = require('express-validator');
 const User = require('../models/user.js');
 const authController = require('../controllers/auth.js');
-
+const isAuth = require('../middleware/is-auth.js');
 
 router.put('/signup', [
     check('email')
@@ -23,5 +23,7 @@ router.put('/signup', [
 ], authController.signup);
 
 router.post('/login', authController.login);
+
+router.get('/status', isAuth, authController.getUserStatus);
 
 module.exports = router;
